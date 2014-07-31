@@ -4,61 +4,47 @@ require_relative 'user_interface.rb'
 
 
 class Board
-    attr_reader :board, :error
+    attr_reader :cells, :error
 
      def initialize
-    @board={"1"=>"1", "2"=>"2", "3"=>"3", "4"=>"4", "5"=>"5", 
+    @cells={"1"=>"1", "2"=>"2", "3"=>"3", "4"=>"4", "5"=>"5", 
      "6"=>"6", "7"=>"7", "8"=>"8", "9"=>"9"}
      end
 
    def invalid_key(answer, board)
-     self.board[answer] !~ /\d+/
+     board.cells[answer] !~ /\d+/
    end
 
    def invalid_move(answer, board)
-     self.board[answer].include? "X" || "O" 
+     board.cells[answer].include? "X" || "O" 
    end
 
    def valid_move(answer, board)
-     if self.invalid_move(answer, board) ||  self.invalid_key(answer, board)
-        return false
-      else
-        return true
-      end 
+     invalid_move(answer, board) ||  invalid_key(answer, board)
    end
 
-   def human_move(answer, board, ui, new_game)
+   def human_move(answer, board, ui)
 
-        if self.invalid_key(answer,board)
+        if invalid_key(answer,board)
         ui.user_error
         @error=true
-        elsif self.invalid_move(answer,board)
+        elsif invalid_move(answer,board)
         ui.user_error
         @error=true
         else
         @error=false
-        board.board[answer]="O"
-        self.valid_move(answer,board)
+        board.cells[answer]="O"
+        valid_move(answer,board)
         ui.choice
-        self.display_board
-        new_game.decrease_space
+        ui.display_board(board.cells)
         end
     end
     
-    def computer_move(answer, new_game)
-        @board[answer]="X"
-        puts "Computer chose space number #{answer}"
-        self.display_board
-        new_game.decrease_space
+    def computer_move(answer, ui, board)
+        @cells[answer]="X"
+        puts "Computer chose space number #{answer}."
+        ui.display_board(board.cells)
         
     end
-      
-    def display_board
-    puts "#{@board["1"]} | #{@board["2"]} | #{@board["3"]}"
-    puts "---------"
-    puts "#{@board["4"]} | #{@board["5"]} | #{@board["6"]}"
-    puts "---------"
-    puts "#{@board["7"]} | #{@board["8"]} | #{@board["9"]}"
-    end    
-    
+
 end

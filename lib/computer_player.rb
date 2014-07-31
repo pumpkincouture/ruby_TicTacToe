@@ -13,8 +13,8 @@ class ComputerPlayer
    
   def computer_turn(board)
         move=[]
-        board.board.each do |k, v|
-        move << k if board.board[k]!= "X" && board.board[k]!="O"
+        board.cells.each do |k, v|
+        move << k if board.cells[k]!= "X" && board.cells[k]!="O"
         end
         move.map!(&:to_s)
         @computer_move=move[-1]

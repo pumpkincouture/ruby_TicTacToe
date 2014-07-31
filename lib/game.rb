@@ -13,34 +13,44 @@ class Game
    @ui = UserInterface.new(human_player)
   end
 
-  @@no_space=9
-     
-  def decrease_space
-  puts "The game has ended!" if game_over?
-  @@no_space -= 1
+ 
+  # def game_over?(board)
+  # winning_combos=[[1,2,3], [4,5,6], [7,8,9],
+  #       [1,4,7], [2,5,8], [3,6,9], 
+  #       [1,5,9], [3,5,7]]
+
+  # @board.cells.each do |x|
+
+  # end
+
+
+  def game_over?(board)
+  open_spaces(@board).length <=0 
+  end
+
+
+  def open_spaces(board)
+  spaces=[]
+  board.cells.each do |k, v|
+  spaces << k if board.cells[k]!= "X" && board.cells[k]!="O"
+  end
+  spaces
   end
     
-  def game_over?
-  @@no_space <= 0
-  end
-    
-  def welcome
-  puts "Welcome to a Simpler Tic Tac Toe. The computer will go first."
-  @board.board["5"]="X"
-  puts "The computer chose space number 5."
-  @board.display_board
-  self.decrease_space
-  end
+  def start
+  @ui.welcome(@board)
+  end 
+
 
   def play_game
   @human_player.user_turn(@ui)
-  @board.human_move(@human_player.human_answer, @board, @ui, self)
+  @board.human_move(@human_player.human_answer, @board, @ui)
   # self.try_again if @board.error
   if @board.error
-    self.try_again
+    try_again
   else
     @computer_player.computer_turn(@board)
-    @board.computer_move(@computer_player.computer_move, self)
+    @board.computer_move(@computer_player.computer_move, @ui, @board)
   end
   end
 
