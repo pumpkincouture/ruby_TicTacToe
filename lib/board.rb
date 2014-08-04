@@ -41,6 +41,7 @@ class Board
     end
     
     def computer_move(answer, ui, board)
+
         @cells[answer]="X"
         puts "Computer chose space number #{answer}."
         ui.display_board(board.cells)
