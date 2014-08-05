@@ -2,7 +2,7 @@ require_relative 'spec_helper.rb'
 
 describe Board do
 	before :each do
-		@board=Board.new
+		@board = Board.new
 	end
 
 describe "#new" do
@@ -29,7 +29,7 @@ end
 describe "#invalid_key" do
 	pending "takes two parameters and examines board cells" do
 	@human_user=HumanPlayer.new
-	@human_user.human_move=("2")
+	@human_user.human_move = ("2")
 	@board.invalid_key(@human_user.human_move, @board)
 	expect(@board.invalid_key).to be true
 	end

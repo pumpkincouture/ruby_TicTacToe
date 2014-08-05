@@ -3,7 +3,7 @@ require_relative 'spec_helper.rb'
 
 describe Game do
 	before :each do
-		@new_game=Game.new
+		@new_game = Game.new
 	end
 
 describe "#new" do
@@ -47,7 +47,7 @@ describe "#open_spaces" do
 	pending "should return the number of open spaces on the board." do
 		expect(@new_game.open_spaces(9)).to eq(9)
 	end
-	#throw error "undefined method for cells- game rb.34"
+	
 
 end
 
