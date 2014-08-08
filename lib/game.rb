@@ -13,67 +13,61 @@ class Game
     @board = board
   end
 
-  def taken_spaces
-    @@human_spaces = []
-    @@computer_spaces = []
+  def computer_spaces(cells)
+    computer_spaces = []
 
-    @board.cells.each do |k,v|
-      if @board.cells[k] == "X"
-      @@computer_spaces << k
-      elsif @board.cells[k] == "O"
-      @@human_spaces << k
+    cells.each do |k,v|
+      if cells[k] == "X"
+        computer_spaces << k
       else
-      false
+        false
       end
     end
-  @@human_spaces
-  @@computer_spaces
+    computer_spaces
   end
 
-  def winner?(spaces)
-    winning_combos = [[1,2,3], [4,5,6], [7,8,9],
-    [1,4,7], [2,5,8], [3,6,9], 
-    [1,5,9], [3,5,7]]
+  def human_spaces(cells)
+    human_spaces = []
 
-    @@human_spaces.map!(&:to_i)
-    @@computer_spaces.map!(&:to_i)   
+    cells.each do |k,v|
+      if cells[k] == "O"
+        human_spaces << k
+      else
+        false
+      end
+    end
+    human_spaces
+  end
+
+  def winner?(computer_spaces, human_spaces)
+    winning_combos = [[1,2,3], [4,5,6], [7,8,9],
+                      [1,4,7], [2,5,8], [3,6,9], 
+                      [1,5,9], [3,5,7]]
+
+    computer_spaces.map!(&:to_i)
+    human_spaces.map!(&:to_i) 
 
     winning_combos.each do |sub_array|
-      if sub_array.all? {|x|@@human_spaces.include?(x)}
-      ui.human_wins
-      return true
-      elsif sub_array.all? {|y|@@computer_spaces.include?(y)}
-      ui.computer_wins
-      return true
+      if sub_array.all? {|x|computer_spaces.include?(x)}
+        @ui.computer_wins
+        return true
+      elsif sub_array.all? {|y|human_spaces.include?(y)}
+        @ui.human_wins
+        return true
       end
     end
       return false
   end
 
-  def open_spaces
+  def open_spaces(cells)
     spaces = []
-    @board.cells.each do |k, v|
-    spaces << k if @board.cells[k] != "X" && @board.cells[k] != "O"
+    cells.each do |k, v|
+    spaces << k if cells[k] != "X" && cells[k] != "O"
     end
     spaces
   end
 
-  def game_over?
-    winner?(taken_spaces) || open_spaces.length <= 0 
-  end
-
-  def start
-    @ui.welcome(@board.cells)
-  end 
-
-  def play_game
-    @human_player.user_turn(@ui)
-      if @board.invalid_key(@human_player.answer, @board.cells)
-      @ui.user_error
-      else
-      @board.valid_move(@human_player.answer, @board.cells)
-      @computer_player.possible_moves(@board) 
-      @board.computer_move(@computer_player.computer_move, @board.cells)
-      end
+  def game_over?(cells)
+    winner?(computer_spaces(cells), human_spaces(cells)) || open_spaces(cells).length <= 0 
   end
 end

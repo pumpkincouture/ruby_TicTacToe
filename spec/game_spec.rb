@@ -1,74 +1,33 @@
 require_relative 'spec_helper.rb'
 
-
 describe Game do
+	let(:cells) { {"1" => "X", "2" => "X", "3" => "X", "4" => "O", "5" => "O", "6" => "6", "7" => "O", "8" => "8", "9" => "9"} }
+	let(:human_spaces) { ["4", "5", "7"] }
+	let(:computer_spaces) { ["1", "2", "3"] }
+	let(:open_spaces) { ["6", "8", "9"] }
+
 	before :each do
-		@new_game = Game.new
+		@new_game = Game.new(@computer_player, @human_player, @user_interface, @board)
 	end
 
-describe "#new" do
-	it "creates a new instance of Game" do
-		expect(@new_game).to be_a(Game)
+	it "returns an array of the computer's current spaces" do
+	  expect(@new_game.computer_spaces(cells)).to eq(computer_spaces)
 	end
 
-	it "should recognize that a new instance of Board was created" do
-	# assigns(:board).should be_kind_of(Board)
-	expect(@new_game.board).to be_a(Board)
-
+	it "returns an array of the human user's current spaces" do
+		expect(@new_game.human_spaces(cells)).to eq(human_spaces)
 	end
 
-	it "should recognize that a new instance of Computer Player was created" do
-	expect(@new_game.computer_player).to be_a(ComputerPlayer)
+	pending "given the board state, it returns a winner" do
+	  expect(@new_game.winner?(computer_spaces, human_spaces)).to be true
 	end
 
-	it "should recognize that a new instance of Human Player was created" do
-	expect(@new_game.human_player).to be_a(HumanPlayer)
+	it "keeps track of which spaces are currently unoccupied" do
+	  expect(@new_game.open_spaces(cells)).to eq(open_spaces)
 	end
 
-	it "should recognize that a new instance of User Interface was created" do
-	expect(@new_game.ui).to be_a(UserInterface)
+	pending "returns true if the game is over or if there are no spaces left" do
+		expect(@new_game.game_over?(cells)).to be true
 	end
-
-end
-
-describe "#game_over?" do
-	it "keeps track of when the game is over by the amount of available spaces" do
-		expect(@new_game.game_over?(@board)).to be false
-	end
-
-	pending "should return true when there are no more spaces left" do
-		expect(@new_game.game_over?(@board)).to eq(@board)
-	end
-
-end
-
-describe "#open_spaces" do
-
-	pending "should return the number of open spaces on the board." do
-		expect(@new_game.open_spaces(9)).to eq(9)
-	end
-	
-
-end
-
-describe "#welcome" do
-	it "welcomes the player by inputting a string and then calls methods. Check if it calls the board with no parameters." do
-		expect {subject.board (:hello) }.to raise_error
-	end
-
-end
-
-describe "#play_game" do
-	pending "calls several instances and their methods. Check if it calls the @human_player instance." do
-		expect {subject.human_player.should_receive(:ui) }.and_return(subject.human_player)
-	end
-
-	pending "calls the @human_player.user_turn to determine the user's choice." do
-		@new_game.human_player.user_turn(@new_game.ui).should_receive(:message).once
-	end
-
-end
-
-
 end
 

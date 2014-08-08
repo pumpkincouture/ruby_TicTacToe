@@ -2,19 +2,15 @@ require_relative 'board.rb'
 
 class ComputerPlayer
     
-  def possible_moves(board)
-    @@move = []
-    board.cells.each do |k,v|
-    @@move << k if board.cells[k] != "X" && board.cells[k] != "O"
+  def possible_moves(cells)
+    move = []
+    cells.each do |k,v|
+    move << k if cells[k] != "X" && cells[k] != "O"
     end
-    @@move.map!(&:to_s)
+    move.map!(&:to_s)
   end
 
-  def computer_move
-    @@move[-1]
+  def computer_move(move)
+    move[-1]
   end 
-
-  def another
-    puts "I'm calling hello from inside the game"
-  end
 end
