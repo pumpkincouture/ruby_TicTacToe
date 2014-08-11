@@ -25,11 +25,11 @@ ui.welcome(board.cells, player)
 
 until new_game.game_over?(board.cells)
   human_player.user_turn(ui)
-  if board.invalid_key(human_player.answer, board.cells)
+  if board.invalid_key(human_player.answer)
     ui.user_error
   else
-    board.valid_move(human_player.answer, board.cells)
+    board.valid_move(human_player.answer)
     player.possible_moves(board.cells) 
-    board.computer_move(player.computer_move(player.possible_moves(board.cells)), board.cells)
+    board.computer_move(player.computer_move(player.possible_moves(board.cells)))
 	end
 end

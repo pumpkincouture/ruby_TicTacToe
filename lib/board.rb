@@ -10,17 +10,17 @@ class Board
               "6" => "6", "7" => "7", "8" => "8", "9" => "9"}
   end
 
-  def invalid_key(answer, board)
+  def invalid_key(answer)
     cells[answer] !~ /\d+/
   end
 
-  def valid_move(answer, board)
+  def valid_move(answer)
     cells[answer] = "O"
     @ui.human_choice(answer)
     @ui.display_board(cells)
   end
 
-  def computer_move(answer, board)
+  def computer_move(answer)
     cells[answer] = "X"
     @ui.computer_choice(answer)
     @ui.display_board(cells)
