@@ -2,8 +2,23 @@ require_relative 'human_player.rb'
 
 class UserInterface
     
-    def welcome(board)
-      puts "Welcome to a Simpler Tic Tac Toe. The computer will go first."
+    def choice
+      puts "Welcome to Tic Tac Toe. Please choose your level : press e for easy and h for hard."
+      choice = gets.chomp
+      choice.upcase!
+
+      if choice ==  "H"
+        return choice
+      elsif choice == "E"
+        return choice
+      else
+        puts "That's not a valid choice. Please try again."
+        self.choice
+      end
+    end
+
+    def welcome(board, player)
+      puts "Welcome to Tic Tac Toe against #{player}. The computer will go first."
       board["5"] = "X"
       puts "The computer chose space number 5."
       display_board(board)
