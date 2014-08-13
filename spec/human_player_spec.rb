@@ -1,18 +1,20 @@
 require_relative 'spec_helper.rb'
 
 describe HumanPlayer do
-  let(:human_move) { ["5"] }
-  let(:ui) { ["Please choose a move"] }
+  let(:human_answer) { "5" }
 
   before :each do
+  	@ui = MockUi.new
     @human_player = HumanPlayer.new
   end
 	
-	pending "allows the player to choose a move" do
-		expect(@human_player.user_turn(ui)).to raise_error
+	it "allows the player to choose a move" do
+		@human_player.user_turn(@ui)
+		expect(@human_player.user_turn(@ui)).to be_empty
 	end
 
-	pending "returns the human move" do
-		expect(@human_player.answer).to eq(human_move)
+	it "returns the human move" do
+		@@human_answer = "5"
+		expect(@human_player.answer).to eq(human_answer)
 	end
 end

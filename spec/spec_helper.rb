@@ -3,6 +3,7 @@ require_relative '../lib/board.rb'
 require_relative '../lib/computer_player.rb'
 require_relative '../lib/human_player.rb'
 require_relative '../lib/user_interface.rb'
+require_relative 'mock_ui.rb'
 
 RSpec.configure do |config|
   config.failure_color = :red
