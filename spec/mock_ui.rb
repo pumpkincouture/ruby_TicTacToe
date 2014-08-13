@@ -17,4 +17,10 @@ class MockUi
 
 	def user_prompt 
 	end
+
+	def welcome(player)
+	end
+
+	def choice
+	end
 end

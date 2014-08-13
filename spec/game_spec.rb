@@ -8,7 +8,10 @@ describe Game do
 
 	before :each do
 		@user_interface = MockUi.new
-		@new_game = Game.new(@computer_player, @human_player, @user_interface, @board)
+		@human_player = MockHuman.new
+		@board = MockBoard.new
+		@player = MockPlayer.new
+		@new_game = Game.new(@player, @human_player, @user_interface, @board)
 	end
 
 	it "returns an array of the computer's current spaces" do
@@ -29,6 +32,10 @@ describe Game do
 
 	it "returns true if the game is over or if there are no spaces left" do
 		expect(@new_game.game_over?(cells)).to be true
+	end
+
+	it "calls the game methods until game_over is true" do
+  	expect(@new_game.play_game).to be_nil
 	end
 end
 
