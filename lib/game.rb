@@ -77,7 +77,6 @@ class Game
       @ui.user_error
     else
       @board.valid_move(@human_player.answer)
-      @player.possible_moves(@board.cells) 
       @board.computer_move(@player.comp_move(@player.possible_moves(@board.cells))) 
     end
   end
