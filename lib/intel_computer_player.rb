@@ -2,14 +2,12 @@ require_relative 'board.rb'
 
 class IntelComputerPlayer
 
+  attr_reader :comp_winning_combos
+  
   def initialize
     @comp_winning_combos = [[1,2,3], [4,5,6], [7,8,9],
                            [1,4,7], [2,5,8], [3,6,9], 
                            [1,5,9], [3,5,7]]
-
-    @human_winning_combos = [[1,2,3], [4,5,6], [7,8,9],
-                            [1,4,7], [2,5,8], [3,6,9], 
-                            [1,5,9], [3,5,7]]
   end
 
   def comp_location(cells)
@@ -98,13 +96,17 @@ class IntelComputerPlayer
   end
 
   def find_block_move(cells)
+
+    human_winning_combos = [[1,2,3], [4,5,6], [7,8,9],
+                            [1,4,7], [2,5,8], [3,6,9], 
+                            [1,5,9], [3,5,7]]
     human_spaces = human_location(cells)
 
     human_spaces.map!(&:to_i)
 
     to_block = []
 
-    @human_winning_combos.each do |sub_array|
+    human_winning_combos.each do |sub_array|
       intersect = sub_array & human_spaces
       if intersect.any?
         difference = sub_array - human_spaces
@@ -166,13 +168,27 @@ class IntelComputerPlayer
     end
   end
 
+  def moves_left(cells)
+
+    move = []
+
+    cells.each do |k,v|
+      move << k if cells[k] != "X" && cells[k] != "O"
+    end
+    move
+  end
+
   def possible_moves(cells)
     to_win = win_move(cells)
     block = to_block?(cells)
+    random = moves_left(cells)
 
     to_win.map!(&:to_s)
+    random.map!(&:to_s)
 
-    if to_win.include? "5"
+    if to_win.empty?
+      return random
+    elsif to_win.include? "5"
       return "5"
     elsif block
       return block
