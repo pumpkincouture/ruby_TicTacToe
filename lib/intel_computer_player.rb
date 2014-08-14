@@ -76,14 +76,10 @@ class IntelComputerPlayer
   end
 
   def win_move(cells)
-    # valid_move = valid_computer_move(cells)
     smart = smart_move(cells)
 
-    # p valid_move
-    # p smart
-    # puts "smart options in win_move"
-
     winning_numbers = []
+
     if smart.include? 5
       return smart
     else
@@ -98,18 +94,8 @@ class IntelComputerPlayer
       end
       winning_numbers.uniq!
       winning_numbers
-        # if sub_array.length == 2
-
-        #    winning_numbers << sub_array[-1]
-        # else
-        #    winning_numbers << sub_array[-1]
-        #    winning_numbers.uniq!
-        #    winning_numbers
-    #     end
-    #   end
     end
   end
-
 
   def find_block_move(cells)
     human_spaces = human_location(cells)
@@ -131,35 +117,23 @@ class IntelComputerPlayer
 
   def refine_block_move(cells)
     block_this = find_block_move(cells)
-    comp_spaces = comp_location(cells)
-
-    comp_spaces.map!(&:to_i)
 
     block_num = []
-
-    p block_this
-    puts "move to block human in"
-
-    if 
-      block_this.each do |sub_array|
-        if sub_array.length == 1
+ 
+    block_this.each do |sub_array|
+      if sub_array.length == 1
           block_num << sub_array
-
-        
-        block_num.uniq!
-        return block_num
+          block_num.uniq!
+          return block_num
       end
     end
     return false
   end
 
-  def to_block?(cells)
-  block_array = refine_block_move(cells)
+  def string_block(cells)
+    block_array = refine_block_move(cells)
 
-  final_block = []
-
-  p block_array
-  puts "this is the refined block"
+    final_block = []
 
     if block_array == false
       return false
@@ -174,43 +148,34 @@ class IntelComputerPlayer
    final_block.map!(&:to_s)
   end
 
-  def reset_block(cells)
+  def to_block?(cells)
     comp_spaces = comp_location(cells)
-    block_bool = to_block?(cells)
-    # previous_block = find_block_move(cells)
+    potential_block = string_block(cells)
 
     string_space = comp_spaces.map(&:to_s)
-    # previous_block
 
-    p string_space
-    puts "string space for computer"
-
-    # if string_space.include? block_
-    #    block_bool.clear
-    # else
-    #     block_bool
-    # end
+    comp_spaces.each do |x|
+      if potential_block == false
+        return false
+      elsif x.include? potential_block[-1]
+        potential_block.clear
+        return false
+      else
+        return potential_block
+      end
+    end
   end
 
   def possible_moves(cells)
-
     to_win = win_move(cells)
-    # potential_block = reset_block(cells)
-    potential_block = to_block?(cells)
-
-    # p to_win
-    # puts "winning_move in possible numbers"
-
-    p potential_block
-    puts "number to block"
+    block = to_block?(cells)
 
     to_win.map!(&:to_s)
 
-
     if to_win.include? "5"
       return "5"
-    elsif potential_block
-      return potential_block
+    elsif block
+      return block
     else to_win
       return to_win
     end
