@@ -2,6 +2,11 @@ require_relative 'board.rb'
 
 class ComputerPlayer
     
+  def first_move(cells)
+  values = cells.values
+  values[rand(values.size)]
+  end
+  
   def possible_moves(cells)
     move = []
     cells.each do |k,v|
@@ -10,7 +15,7 @@ class ComputerPlayer
     move.map!(&:to_s)
   end
 
-  def computer_move(move)
+  def comp_move(move)
     move[-1]
   end 
 end

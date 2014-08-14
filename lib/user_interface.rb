@@ -17,11 +17,8 @@ class UserInterface
       end
     end
 
-    def welcome(board, player)
-      puts "Welcome to Tic Tac Toe against #{player}. The computer will go first."
-      board["5"] = "X"
-      puts "The computer chose space number 5."
-      display_board(board)
+    def welcome(player)
+      puts "Welcome to Tic Tac Toe against #{player}. The computer will go first." 
     end
 
     def user_prompt

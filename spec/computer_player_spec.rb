@@ -14,6 +14,6 @@ describe ComputerPlayer do
 	end
 
 	it "picks one move, the last number in the array" do
-		expect(@computer_player.computer_move(moves)).to eq(move)
+		expect(@computer_player.comp_move(moves)).to eq(move)
 	end
 end
