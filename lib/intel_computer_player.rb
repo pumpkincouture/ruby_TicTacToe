@@ -12,9 +12,6 @@ class IntelComputerPlayer
                             [1,5,9], [3,5,7]]
   end
 
-
-
-
   def comp_location(cells)
     computer_spaces = []
 
