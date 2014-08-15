@@ -23,4 +23,6 @@ class MockUi
 
 	def choice
 	end
+
+	
 end
