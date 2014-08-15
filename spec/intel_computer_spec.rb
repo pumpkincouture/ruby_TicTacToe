@@ -108,9 +108,9 @@ describe IntelComputerPlayer do
 		expect(@intel_computer_player.possible_moves(cells_example)).to eq(random)
 	end
 
-	pending "returns the string the computer chooses." do
+	it "returns the string the computer chooses." do
 		cells_example = {"1" => "O", "2" => "O", "3" => "X", "4" => "O", "5" => "X", "6" => "O", "7" => "7", "8" => "O", "9" => "X"}
 		result = "7"
-		expect(@intel_computer_player.comp_move(cells_example)).to eq(result)
+		expect(@intel_computer_player.comp_move(result)).to eq(result)
 	end
 end
