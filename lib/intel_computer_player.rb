@@ -96,10 +96,10 @@ class IntelComputerPlayer
   end
 
   def find_block_move(cells)
-
     human_winning_combos = [[1,2,3], [4,5,6], [7,8,9],
                             [1,4,7], [2,5,8], [3,6,9], 
                             [1,5,9], [3,5,7]]
+
     human_spaces = human_location(cells)
 
     human_spaces.map!(&:to_i)
@@ -184,7 +184,6 @@ class IntelComputerPlayer
     random = moves_left(cells)
 
     to_win.map!(&:to_s)
-    random.map!(&:to_s)
 
     if to_win.empty?
       return random
