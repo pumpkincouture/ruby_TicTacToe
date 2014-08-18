@@ -3,6 +3,7 @@ require_relative 'computer_player.rb'
 require_relative 'human_player.rb'
 require_relative 'user_interface.rb'
 require_relative 'ttt_constants.rb'
+require_relative 'set_up.rb'
 
 
 class Game
@@ -66,6 +67,11 @@ class Game
 
   def game_over?(cells)
     winner?(computer_spaces(cells), human_spaces(cells)) || open_spaces(cells).length <= 0 
+  end
+
+  def first_move
+    @ui.welcome(@player)
+    @board.computer_move(@player.comp_move(@player.possible_moves(@board.cells)))
   end
 
   def play_game
