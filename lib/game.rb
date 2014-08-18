@@ -21,11 +21,7 @@ class Game
     computer_spaces = []
 
     cells.each do |k,v|
-      if cells[k] == X_PIECE
-        computer_spaces << k
-      else
-        false
-      end
+      computer_spaces << k if cells[k] == X_PIECE
     end
     computer_spaces
   end
@@ -34,11 +30,7 @@ class Game
     human_spaces = []
 
     cells.each do |k,v|
-      if cells[k] == O_PIECE
-        human_spaces << k
-      else
-        false
-      end
+      human_spaces << k if cells[k] == O_PIECE
     end
     human_spaces
   end

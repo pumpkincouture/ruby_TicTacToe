@@ -16,11 +16,7 @@ class IntelComputerPlayer
     computer_spaces = []
 
     cells.each do |k,v|
-      if cells[k] == X_PIECE
-        computer_spaces << k
-      else
-        false
-      end
+      computer_spaces << k if cells[k] == X_PIECE
     end
     computer_spaces
   end 
@@ -29,11 +25,7 @@ class IntelComputerPlayer
     human_spaces = []
 
     cells.each do |k,v|
-      if cells[k] == O_PIECE
-        human_spaces << k
-      else
-        false
-      end
+      human_spaces << k if cells[k] == O_PIECE
     end
     human_spaces
   end
@@ -71,8 +63,7 @@ class IntelComputerPlayer
         end
       end
     end
-    options.uniq!
-    options
+    options.uniq
   end
 
   def win_move(cells)
@@ -92,8 +83,7 @@ class IntelComputerPlayer
           end
         end
       end
-      winning_numbers.uniq!
-      winning_numbers
+      winning_numbers.uniq
     end
   end
 
@@ -112,8 +102,7 @@ class IntelComputerPlayer
         to_block << difference
       end
     end
-    to_block.uniq!
-    to_block
+    to_block.uniq
   end
 
   def refine_block_move(cells)
@@ -185,17 +174,17 @@ class IntelComputerPlayer
     to_win.map!(&:to_s)
 
     if to_win.empty?
-      return random
+      random
     elsif to_win.include? "5"
-      return "5"
+      "5"
     elsif block
-      return block
+      block
     else to_win
-      return to_win
+      to_win
     end
   end
 
   def comp_move(move)
-    return move[-1]
+    move[-1]
   end
 end
