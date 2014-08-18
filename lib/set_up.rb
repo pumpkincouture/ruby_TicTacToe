@@ -33,5 +33,8 @@ class SetUp
   until new_game.game_over?(board.cells)
 	  new_game.play_game
   end
+
+  new_game.end_game_message(new_game.winner?(new_game.computer_spaces(board.cells), new_game.human_spaces(board.cells)))
+  
 	end
 end

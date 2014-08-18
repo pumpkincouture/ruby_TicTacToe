@@ -1,6 +1,8 @@
 require_relative 'board.rb'
+require_relative 'ttt_constants.rb'
 
 class IntelComputerPlayer
+  include TTTConstants
 
   attr_reader :comp_winning_combos
   
@@ -14,7 +16,7 @@ class IntelComputerPlayer
     computer_spaces = []
 
     cells.each do |k,v|
-      if cells[k] == "X"
+      if cells[k] == X_PIECE
         computer_spaces << k
       else
         false
@@ -27,7 +29,7 @@ class IntelComputerPlayer
     human_spaces = []
 
     cells.each do |k,v|
-      if cells[k] == "O"
+      if cells[k] == O_PIECE
         human_spaces << k
       else
         false
@@ -96,9 +98,6 @@ class IntelComputerPlayer
   end
 
   def find_block_move(cells)
-    human_winning_combos = [[1,2,3], [4,5,6], [7,8,9],
-                            [1,4,7], [2,5,8], [3,6,9], 
-                            [1,5,9], [3,5,7]]
 
     human_spaces = human_location(cells)
 
@@ -106,7 +105,7 @@ class IntelComputerPlayer
 
     to_block = []
 
-    human_winning_combos.each do |sub_array|
+    WINNING_COMBOS.each do |sub_array|
       intersect = sub_array & human_spaces
       if intersect.any?
         difference = sub_array - human_spaces
@@ -173,7 +172,7 @@ class IntelComputerPlayer
     move = []
 
     cells.each do |k,v|
-      move << k if cells[k] != "X" && cells[k] != "O"
+      move << k if cells[k] != X_PIECE && cells[k] != O_PIECE
     end
     move
   end
