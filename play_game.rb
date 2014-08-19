@@ -10,10 +10,11 @@ require './lib/set_up.rb'
 setup = SetUp.new
 
 setup.create_instances
-setup.choose_player
 
+setup.choose_player(setup.ui.choice)
 
 new_game = Game.new(setup.player, setup.human_player, setup.ui, setup.board)
+
 new_game.first_move
 
 until new_game.game_over?(setup.board.cells)

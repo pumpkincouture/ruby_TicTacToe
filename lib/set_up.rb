@@ -6,7 +6,7 @@ require_relative 'intel_computer_player.rb'
 require_relative 'computer_player.rb'
 
 class SetUp
-	attr_reader :human_player, :ui, :board, :player
+	attr_reader :player, :human_player, :ui, :board
 
 	def create_instances
 	  @human_player = HumanPlayer.new
@@ -14,15 +14,12 @@ class SetUp
 	  @board = Board.new(@ui)
 	end
 
-	def choose_player
-	  player = @ui.choice
+	def choose_player(human_choice)
 
-	  if player == "E"
-		  computer_player = ComputerPlayer.new
-		  @player = computer_player
+	  if human_choice == "E"
+		  @player = ComputerPlayer.new
 	  else 
-		  intel_computer_player = IntelComputerPlayer.new
-		  @player = intel_computer_player
+		  @player = IntelComputerPlayer.new
 	  end
 	  @player
 	end

@@ -9,11 +9,11 @@ describe ComputerPlayer do
 	  @computer_player = ComputerPlayer.new
 	end
 
-	it "enumerates through cells and picks a move" do
+	it "returns open cells" do
 		expect(@computer_player.possible_moves(cells)).to eq(moves)
 	end
 
-	it "picks one move, the last number in the array" do
+	it "picks one move" do
 		expect(@computer_player.comp_move(moves)).to eq(move)
 	end
 end

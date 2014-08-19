@@ -9,29 +9,35 @@ describe Game do
 	before :each do
 		@user_interface = MockUi.new
 		@human_player = MockHuman.new
-		@board = MockBoard.new
+		@board = MockBoard.new(@user_interface)
 		@player = MockPlayer.new
 		@new_game = Game.new(@player, @human_player, @user_interface, @board)
 	end
 
-	it "returns an array of the computer's current spaces" do
+	it "returns computer's current spaces" do
 	  expect(@new_game.computer_spaces(cells)).to eq(computer_spaces)
 	end
 
-	it "returns an array of the human user's current spaces" do
+	it "returns human user's current spaces" do
 		expect(@new_game.human_spaces(cells)).to eq(human_spaces)
 	end
 
-	it "given the board state, it returns a winner" do
-	  expect(@new_game.winner?(computer_spaces, human_spaces)).to be true
+	it "returns a winner" do
+		string = "computer"
+	  expect(@new_game.winner?(computer_spaces, human_spaces)).to eq(string)
 	end
 
-	it "keeps track of which spaces are currently unoccupied" do
+	it "returns open spaces" do
 	  expect(@new_game.open_spaces(cells)).to eq(open_spaces)
 	end
 
-	it "returns true if the game is over or if there are no spaces left" do
-		expect(@new_game.game_over?(cells)).to be true
+	it "returns winner" do
+		string = "computer"
+		expect(@new_game.game_over?(cells)).to eq(string)
+	end
+
+	it "calls methods for first computer move" do
+		expect(@new_game.first_move).to be_nil
 	end
 
 	it "calls the game methods until game_over is true" do
