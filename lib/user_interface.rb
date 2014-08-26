@@ -47,6 +47,10 @@ class UserInterface
       puts "Computer won!"
     end
 
+    def cats_game
+      puts "Cat's game!"
+    end
+
     def user_error
       puts "I'm sorry, that is not a valid move, please try again."
     end

@@ -2,8 +2,13 @@ require_relative 'board.rb'
 require_relative 'computer_player.rb'
 require_relative 'human_player.rb'
 require_relative 'user_interface.rb'
+require_relative 'ttt_constants.rb'
+require_relative 'set_up.rb'
+
 
 class Game
+  include TTTConstants
+
   attr_reader :player, :human_player, :ui, :board
     
   def initialize(player, human_player, user_interface, board)
@@ -17,11 +22,7 @@ class Game
     computer_spaces = []
 
     cells.each do |k,v|
-      if cells[k] == "X"
-        computer_spaces << k
-      else
-        false
-      end
+      computer_spaces << k if cells[k] == X_PIECE
     end
     computer_spaces
   end
@@ -30,45 +31,47 @@ class Game
     human_spaces = []
 
     cells.each do |k,v|
-      if cells[k] == "O"
-        human_spaces << k
-      else
-        false
-      end
+      human_spaces << k if cells[k] == O_PIECE
     end
     human_spaces
   end
 
   def winner?(computer_spaces, human_spaces)
-    winning_combos = [[1,2,3], [4,5,6], [7,8,9],
-                      [1,4,7], [2,5,8], [3,6,9], 
-                      [1,5,9], [3,5,7]]
 
     computer_spaces.map!(&:to_i)
     human_spaces.map!(&:to_i) 
 
-    winning_combos.each do |sub_array|
+    WINNING_COMBOS.each do |sub_array|
       if sub_array.all? {|x|computer_spaces.include?(x)}
-        @ui.computer_wins
-        return true
+        return "computer"
       elsif sub_array.all? {|y|human_spaces.include?(y)}
-        @ui.human_wins
-        return true
+        return "human"
       end
     end
-      return false
+    return false
+  end
+
+  def end_game_message(winning_player)
+    @ui.computer_wins if winning_player == "computer"
+    @ui.human_wins if winning_player == "human" 
+    @ui.cats_game if winning_player == false
   end
 
   def open_spaces(cells)
     spaces = []
     cells.each do |k, v|
-    spaces << k if cells[k] != "X" && cells[k] != "O"
+    spaces << k if cells[k] != X_PIECE && cells[k] != O_PIECE
     end
     spaces
   end
 
   def game_over?(cells)
     winner?(computer_spaces(cells), human_spaces(cells)) || open_spaces(cells).length <= 0 
+  end
+
+  def first_move
+    @ui.welcome(@player)
+    @board.computer_move(@player.comp_move(@player.possible_moves(@board.cells)))
   end
 
   def play_game

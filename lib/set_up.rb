@@ -6,32 +6,21 @@ require_relative 'intel_computer_player.rb'
 require_relative 'computer_player.rb'
 
 class SetUp
+	attr_reader :player, :human_player, :ui, :board
 
-  def ready
-	human_player = HumanPlayer.new
-	ui = UserInterface.new
-	board = Board.new(ui)
-
-	player = ui.choice
-
-	if player == "E"
-		computer_player = ComputerPlayer.new
-		player = computer_player
-	  ui.welcome(player)
-	  player.first_move(board.cells)
-	  board.computer_move(player.comp_move(player.first_move(board.cells)))
-	else 
-		intel_computer_player = IntelComputerPlayer.new
-		player = intel_computer_player
-	  ui.welcome(player)
-	  player.possible_moves(board.cells) 
-	  board.computer_move(player.comp_move(player.possible_moves(board.cells))) 
+	def create_instances
+	  @human_player = HumanPlayer.new
+	  @ui = UserInterface.new
+	  @board = Board.new(@ui)
 	end
 
-	new_game = Game.new(player, human_player, ui, board)
+	def choose_player(human_choice)
 
-  until new_game.game_over?(board.cells)
-	  new_game.play_game
-  end
+	  if human_choice == "E"
+		  @player = ComputerPlayer.new
+	  else 
+		  @player = IntelComputerPlayer.new
+	  end
+	  @player
 	end
 end
