@@ -14,7 +14,9 @@ class SetUp
 	  @board = Board.new(@ui)
 	end
 
-	def choose_player(human_choice)
+	def choose_player
+
+		human_choice = @ui.choice
 
 	  if human_choice == "E"
 		  @player = ComputerPlayer.new

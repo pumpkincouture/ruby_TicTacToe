@@ -4,6 +4,7 @@ describe SetUp do
 
 	before :each do
 	@setup = SetUp.new
+	@ui = MockUi.new
 	end
 
 	it "creates Human Player instance" do
@@ -18,13 +19,13 @@ describe SetUp do
 		expect(@setup.board).to eq(@setup.board)
 	end
 
-	it "returns Computer Player instance" do
-		@setup.choose_player("E")
-		expect(@setup.player).to eq(@setup.player)
+	pending "returns Computer Player instance" do
+		human_choice = @ui.choice
+		expect(@setup.choose_player).to eq("E")
 	end
 
-	it "returns Intel Computer Player instance" do
+	pending "returns Intel Computer Player instance" do
 		@setup.choose_player("H")
-		expect(@setup.player).to eq(@setup.player)
+		expect(@setup.choose_player).to eq(@setup.player)
 	end
 end

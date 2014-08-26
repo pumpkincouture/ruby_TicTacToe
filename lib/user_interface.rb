@@ -1,30 +1,19 @@
 require_relative 'human_player.rb'
 
 class UserInterface
-
-  attr_accessor :kernel
-
-    def initialize
-      @ui = Kernel
-    end
     
     def choice
       puts "Welcome to Tic Tac Toe. Please choose your level : press e for easy and h for hard."
       choice = gets.chomp
       choice.upcase!
 
-      if choice ==  "H"
-        return choice
-      elsif choice == "E"
-        return choice
-      else
-        puts "That's not a valid choice. Please try again."
-        self.choice
-      end
+      return choice if choice ==  "H" || choice == "E"
+      puts "That's not a valid choice. Please try again."
+      self.choice
     end
 
     def welcome(player)
-      @ui.puts "Welcome to Tic Tac Toe against #{player}. The computer will go first." 
+      puts "Welcome to Tic Tac Toe against #{player}. The computer will go first." 
     end
 
     def user_prompt

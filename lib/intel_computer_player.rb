@@ -15,8 +15,8 @@ class IntelComputerPlayer
   def comp_location(cells)
     computer_spaces = []
 
-    cells.each do |k,v|
-      computer_spaces << k if cells[k] == X_PIECE
+    cells.each do |space, value|
+      computer_spaces << space if cells[space] == X_PIECE
     end
     computer_spaces
   end 
@@ -24,8 +24,8 @@ class IntelComputerPlayer
   def human_location(cells)
     human_spaces = []
 
-    cells.each do |k,v|
-      human_spaces << k if cells[k] == O_PIECE
+    cells.each do |space, value|
+      human_spaces << space if cells[space] == O_PIECE
     end
     human_spaces
   end
@@ -160,8 +160,8 @@ class IntelComputerPlayer
 
     move = []
 
-    cells.each do |k,v|
-      move << k if cells[k] != X_PIECE && cells[k] != O_PIECE
+    cells.each do |space, value|
+      move << space if cells[space] != X_PIECE && cells[space] != O_PIECE
     end
     move
   end

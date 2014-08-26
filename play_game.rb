@@ -11,14 +11,8 @@ setup = SetUp.new
 
 setup.create_instances
 
-setup.choose_player(setup.ui.choice)
+setup.choose_player
 
 new_game = Game.new(setup.player, setup.human_player, setup.ui, setup.board)
 
-new_game.first_move
-
-until new_game.game_over?(setup.board.cells)
-  new_game.play_game
-end
-
-new_game.end_game_message(new_game.winner?(new_game.computer_spaces(setup.board.cells), new_game.human_spaces(setup.board.cells)))
+new_game.play!

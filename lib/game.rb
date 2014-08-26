@@ -21,8 +21,8 @@ class Game
   def computer_spaces(cells)
     computer_spaces = []
 
-    cells.each do |k,v|
-      computer_spaces << k if cells[k] == X_PIECE
+    cells.each do |space, value|
+      computer_spaces << space if cells[space] == X_PIECE
     end
     computer_spaces
   end
@@ -30,8 +30,8 @@ class Game
   def human_spaces(cells)
     human_spaces = []
 
-    cells.each do |k,v|
-      human_spaces << k if cells[k] == O_PIECE
+    cells.each do |space, value|
+      human_spaces << space if cells[space] == O_PIECE
     end
     human_spaces
   end
@@ -59,8 +59,8 @@ class Game
 
   def open_spaces(cells)
     spaces = []
-    cells.each do |k, v|
-    spaces << k if cells[k] != X_PIECE && cells[k] != O_PIECE
+    cells.each do |space, value|
+    spaces << space if cells[space] != X_PIECE && cells[space] != O_PIECE
     end
     spaces
   end
@@ -83,4 +83,13 @@ class Game
       @board.computer_move(@player.comp_move(@player.possible_moves(@board.cells))) 
     end
   end
+
+  def play!
+    first_move
+    until game_over?(@board.cells)
+      play_game
+    end
+    end_game_message(winner?(computer_spaces(@board.cells), human_spaces(@board.cells)))
+  end
+
 end
